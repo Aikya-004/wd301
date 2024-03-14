@@ -5,18 +5,18 @@ interface TaskProps {
   title: string;
   assigneeName: string;
   dueDate?: string;
-  completedDate?: string;
+  completedAtDate?: string;
 }
 
 const TaskCard: React.FC<TaskProps> = (props) => {
-  const { title, assigneeName, dueDate, completedDate } = props;
+  const { title, assigneeName, dueDate, completedAtDate } = props;
 
   return (
     <div className='TaskItem m-4'>
       <h2 className="text-xl font-bold">{title}</h2>
-      {completedDate ? (
+      {completedAtDate ? (
         <>
-          <p>Completed on: {completedDate}</p>
+          <p>Completed on: {completedAtDate}</p>
           <p>Assignee: {assigneeName}</p>
         </>
       ) : (

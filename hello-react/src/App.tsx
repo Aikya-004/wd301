@@ -21,8 +21,8 @@ function App() {
           </div>
           <div className="task-list p-4">
             <h1 className="flex justify-center font-bold p-2">Done</h1>
-            <TaskCard title="Style the content" completedDate="10th April" assigneeName="Rohit.S" />
-            <TaskCard title="Get the Approval" completedDate="20th April" assigneeName="Rohit.M" />
+            <TaskCard title="Style the content" completedAtDate="10th April" assigneeName="Rohit.S" />
+            <TaskCard title="Get the Approval" completedAtDate="20th April" assigneeName="Rohit.M" />
           </div>
         </div>
       </div>
