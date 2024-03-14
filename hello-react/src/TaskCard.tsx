@@ -1,5 +1,12 @@
+import React from 'react';
 import './TaskCard.css'
+interface Task{
+  title:string;
+  assigneeName:string;
+  dueDate:string;
+  completedDate:string;
 
+}
 const TaskCard = (props) => {
   console.log(props)
   return (
