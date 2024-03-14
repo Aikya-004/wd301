@@ -1,30 +1,32 @@
 import React from 'react';
-import './TaskCard.css'
-interface Task{
-  title:string;
-  assigneeName:string;
-  dueDate:string;
-  completedDate:string;
+import './TaskCard.css';
 
+interface TaskProps {
+  title: string;
+  assigneeName: string;
+  dueDate?: string;
+  completedDate?: string;
 }
-const TaskCard = (props) => {
-  console.log(props)
+
+const TaskCard: React.FC<TaskProps> = (props) => {
+  const { title, assigneeName, dueDate, completedDate } = props;
+
   return (
     <div className='TaskItem m-4'>
-      <h2 className="text-xl font-bold">{props.title}</h2>
-      {props.completedDate ? (
+      <h2 className="text-xl font-bold">{title}</h2>
+      {completedDate ? (
         <>
-          <p>Completed on: {props.completedDate}</p>
-          <p>Assignee: {props.assigneeName}</p>
+          <p>Completed on: {completedDate}</p>
+          <p>Assignee: {assigneeName}</p>
         </>
       ) : (
         <>
-          <p>Due Date: {props.dueDate}</p>
-          <p>Assignee: {props.assigneeName}</p>
+          {dueDate && <p>Due on: {dueDate}</p>}
+          <p>Assignee: {assigneeName}</p>
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default TaskCard
+export default TaskCard;
