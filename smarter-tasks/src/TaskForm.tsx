@@ -2,80 +2,91 @@ import React from "react";
 import { TaskItem } from "./types";
 
 interface TaskFormProps {
-    addTask: (task: TaskItem) => void;
-  }
+  addTask: (task: TaskItem) => void;
+}
 
 interface TaskFormState {
-    title: string;
-    dueDate:string;
-    description:string;
+  title: string;
+  dueDate: string;
+  description: string;
 }
 
 class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
   constructor(props: TaskFormProps) {
     super(props);
     this.state = {
-        title: "",
-        dueDate:"",
-        description:""
-      }
-    // Binding the addTask method to this instance
-    this.addTask = this.addTask.bind(this);
+      title: "",
+      dueDate: "",
+      description: ""
+    };
   }
+
   addTask: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const newTask = {
-      title: this.state.title,
-      dueDate:this.state.dueDate,
-      description:this.state.description,
-    };
+    const { title, dueDate, description } = this.state;
+
+    if (!title || !dueDate) {
+      alert("Please provide a title and a due date.");
+      return;
+    }
+
+    const newTask = { title, dueDate, description };
     this.props.addTask(newTask);
-    this.setState({ title: "" });
-    this.setState({ description: "" });
-    this.setState({ dueDate: "" });
-
+    this.setState({ title: "", dueDate: "", description: "" });
   };
 
-  // Method to handle form submission
-
-  titleChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    console.log(`${event.target.value}`);
-    this.setState({ title: event.target.value });
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ [event.target.name]: event.target.value } as Pick<
+      TaskFormState,
+      keyof TaskFormState
+    >);
   };
-  dueDateChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    console.log(event.target.value)
-    this.setState({ dueDate: event.target.value });
-   
-};
-   descriptionChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-  console.log(event.target.value)
-  this.setState({ description: event.target.value });
-  
-};
-
-  inputRef = React.createRef<HTMLInputElement>();
 
   render() {
+    const { title, dueDate, description } = this.state;
+    const isSubmitDisabled = !title || !dueDate;
+
     return (
-        
       <form onSubmit={this.addTask}>
         <div className="TaskItem">
-        <label htmlFor="todoTitle">Task:</label>
-        <input type="text" id="todoTitle" className="border border-black" value={this.state.title} onChange={this.titleChanged} required/>
+          <label htmlFor="todoTitle">Task:</label>
+          <input
+            type="text"
+            id="todoTitle"
+            name="title"
+            className="border border-black"
+            value={title}
+            onChange={this.handleChange}
+            required
+          />
         </div>
         <div className="TaskItem">
-        <label htmlFor="todoDueDate">Due Date:</label>
-        <input type="text" id="todoDueDate" className="border border-black" value={this.state.dueDate} onChange={this.dueDateChanged} required/>
+          <label htmlFor="todoDueDate">Due Date:</label>
+          <input
+            type="date"
+            id="todoDueDate"
+            name="dueDate"
+            className="border border-black"
+            value={dueDate}
+            onChange={this.handleChange}
+            required
+          />
         </div>
         <div className="TaskItem">
-        <label htmlFor="todoDescription">Description:</label>
-        <input type="text" id="todoDescription" className="border border-black" value={this.state.description} onChange={this.descriptionChanged} />
+          <label htmlFor="todoDescription">Description:</label>
+          <input
+            type="text"
+            id="todoDescription"
+            name="description"
+            className="border border-black"
+            value={description}
+            onChange={this.handleChange}
+          />
         </div>
-      
 
-        <button id="addTaskButton" type="submit">Add item</button>
-       
-
+        <button id="addTaskButton" type="submit" disabled={isSubmitDisabled}>
+          Add item
+        </button>
       </form>
     );
   }
