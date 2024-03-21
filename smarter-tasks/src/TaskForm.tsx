@@ -8,7 +8,7 @@ interface TaskFormProps {
 interface TaskFormState {
     title: string;
     dueDate:string;
-    description?:string;
+    description:string;
 }
 
 class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
