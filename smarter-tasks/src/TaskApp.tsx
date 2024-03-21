@@ -7,7 +7,6 @@ interface TaskAppProp {}
 interface TaskAppState {
   tasks: TaskItem[];
 }
-
 class TaskApp extends React.Component<TaskAppProp, TaskAppState> {
     
   constructor(props: TaskAppProp) {
