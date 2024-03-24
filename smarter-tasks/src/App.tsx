@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import TaskApp from "./TaskApp";
 
 function App() {
@@ -8,4 +8,4 @@ function App() {
     </div>
   );
 }
-export default App
+export default App;

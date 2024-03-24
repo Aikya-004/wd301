@@ -17,7 +17,7 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
     this.state = {
       title: "",
       dueDate: null,
-      description: ""
+      description: "",
     };
     // Binding the addTask method to this instance
     this.addTask = this.addTask.bind(this);
@@ -31,8 +31,8 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
     }
     const newTask = {
       title: this.state.title,
-      dueDate: this.state.dueDate.toISOString().split('T')[0], // Extract only date part
-      description: this.state.description
+      dueDate: this.state.dueDate.toISOString().split("T")[0], // Extract only date part
+      description: this.state.description,
     };
     this.props.addTask(newTask);
     this.setState({ title: "", description: "", dueDate: null });
@@ -70,7 +70,11 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
             type="date"
             id="todoDueDate"
             className="border border-black"
-            value={this.state.dueDate ? this.state.dueDate.toISOString().split('T')[0] : ''} // Display only date part
+            value={
+              this.state.dueDate
+                ? this.state.dueDate.toISOString().split("T")[0]
+                : ""
+            } // Display only date part
             onChange={this.dueDateChanged}
             required
           />
