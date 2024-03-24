@@ -7,7 +7,7 @@ interface TaskFormProps {
 
 interface TaskFormState {
   title: string;
-  dueDate: string;
+  dueDate: Date | null;
   description: string;
 }
 
@@ -16,36 +16,41 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
     super(props);
     this.state = {
       title: "",
-      dueDate: "",
+      dueDate: null,
       description: ""
     };
+    // Binding the addTask method to this instance
+    this.addTask = this.addTask.bind(this);
   }
 
   addTask: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const { title, dueDate, description } = this.state;
-
-    if (!title || !dueDate) {
-      alert("Please provide a title and a due date.");
+    if (this.state.title.trim() === "" || !this.state.dueDate) {
+      // Title or due date is empty, prevent adding task
       return;
     }
-
-    const newTask = { title, dueDate, description };
+    const newTask = {
+      title: this.state.title,
+      dueDate: this.state.dueDate.toISOString().split('T')[0], // Extract only date part
+      description: this.state.description
+    };
     this.props.addTask(newTask);
-    this.setState({ title: "", dueDate: "", description: "" });
+    this.setState({ title: "", description: "", dueDate: null });
   };
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ [event.target.name]: event.target.value } as Pick<
-      TaskFormState,
-      keyof TaskFormState
-    >);
+  titleChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    this.setState({ title: event.target.value });
+  };
+
+  dueDateChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    this.setState({ dueDate: new Date(event.target.value) });
+  };
+
+  descriptionChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    this.setState({ description: event.target.value });
   };
 
   render() {
-    const { title, dueDate, description } = this.state;
-    const isSubmitDisabled = !title || !dueDate;
-
     return (
       <form onSubmit={this.addTask}>
         <div className="TaskItem">
@@ -53,10 +58,9 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
           <input
             type="text"
             id="todoTitle"
-            name="title"
             className="border border-black"
-            value={title}
-            onChange={this.handleChange}
+            value={this.state.title}
+            onChange={this.titleChanged}
             required
           />
         </div>
@@ -65,10 +69,9 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
           <input
             type="date"
             id="todoDueDate"
-            name="dueDate"
             className="border border-black"
-            value={dueDate}
-            onChange={this.handleChange}
+            value={this.state.dueDate ? this.state.dueDate.toISOString().split('T')[0] : ''} // Display only date part
+            onChange={this.dueDateChanged}
             required
           />
         </div>
@@ -77,14 +80,12 @@ class TaskForm extends React.Component<TaskFormProps, TaskFormState> {
           <input
             type="text"
             id="todoDescription"
-            name="description"
             className="border border-black"
-            value={description}
-            onChange={this.handleChange}
+            value={this.state.description}
+            onChange={this.descriptionChanged}
           />
         </div>
-
-        <button id="addTaskButton" type="submit" disabled={isSubmitDisabled}>
+        <button id="addTaskButton" type="submit">
           Add item
         </button>
       </form>
