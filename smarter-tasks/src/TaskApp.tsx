@@ -8,16 +8,18 @@ interface TaskAppState {
 }
 
 const TaskApp = () => {
-  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>("tasks", {
-    tasks: [],
-  });
+  const [taskAppState, setTaskAppState] = useLocalStorage<TaskAppState>(
+    "tasks",
+    { tasks: [] }
+  );
 
   const addTask = (task: TaskItem) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
 
-  const deleteTask = (taskToDelete: TaskItem) => {
-    const updatedTasks = taskAppState.tasks.filter(task => task !== taskToDelete);
+  const deleteTask = (idx: number) => {
+    const updatedTasks = [...taskAppState.tasks];
+    updatedTasks.splice(idx, 1);
     setTaskAppState({ tasks: updatedTasks });
   };
 
@@ -36,7 +38,7 @@ const TaskApp = () => {
             Pending
           </h1>
           <TaskForm addTask={addTask} />
-          <TaskList tasks={taskAppState.tasks} onDeleteTask={deleteTask} />
+          <TaskList tasks={taskAppState.tasks} onDelete={deleteTask} />
         </div>
       </div>
     </div>
