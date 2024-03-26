@@ -1,26 +1,37 @@
-import React from "react";
 import Task from "./Task";
 import { TaskItem } from "./types";
-
+import './TaskCard.css';
 interface Props {
   tasks: TaskItem[];
+  onDeleteTask: (task: TaskItem) => void;
 }
-interface State {}
 
-class TaskList extends React.Component<Props, State> {
-  render() {
-    return (
-      <div>
-        {this.props.tasks.map((task, idx) => (
+const TaskList = (props: Props) => {
+  const { tasks, onDeleteTask } = props;
+
+  const handleDeleteTask = (task: TaskItem) => {
+    onDeleteTask(task);
+  };
+
+  return (
+    <ul className="task-list">
+      {tasks.map((task, idx) => (
+        <li key={idx} className="task-item">
           <Task
-            key={idx}
             title={task.title}
-            dueDate={task.dueDate}
             description={task.description}
+            dueDate={task.dueDate}
           />
-        ))}
-      </div>
-    );
-  }
-}
+          <button
+            className="deleteTaskButton" id="addTaskButton"
+            onClick={() => handleDeleteTask(task)}
+          >
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 export default TaskList;
