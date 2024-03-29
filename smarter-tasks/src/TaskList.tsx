@@ -12,7 +12,7 @@ const TaskList = (props: Props) => {
   };
 
   const taskElements = props.tasks.map((task, idx) => (
-    <li key={idx} className="task-item-container  ">
+    <li key={idx} >
       <Task
         title={task.title}
         description={task.description}
