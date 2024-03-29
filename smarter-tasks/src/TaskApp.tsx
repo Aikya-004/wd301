@@ -2,6 +2,7 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import { TaskItem } from "./types";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
+import React from "react";
 
 interface TaskAppState {
   tasks: TaskItem[];
@@ -12,7 +13,15 @@ const TaskApp = () => {
     "tasks",
     { tasks: [] }
   );
-
+  React.useEffect(() => {
+    const id = setTimeout(() => {
+      console.log(`Saved ${taskAppState.tasks.length} items to backend...`);
+    }, 5000);
+    return () => {
+      console.log("cancel any existing n/w call");
+      clearTimeout(id);
+    };
+}, [taskAppState.tasks]);
   const addTask = (task: TaskItem) => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };

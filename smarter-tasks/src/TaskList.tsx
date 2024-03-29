@@ -20,7 +20,7 @@ const TaskList = (props: Props) => {
       />
       <button
         onClick={() => handleDelete(idx)}
-        className="deleteTaskButton"
+        className="deleteTaskButton  w-fit h-fit text-white px-5 rounded-lg mb-1 bg-red-600"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
