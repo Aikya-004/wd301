@@ -1,30 +1,25 @@
-import { Link } from "react-router-dom";
 import "./TaskCard.css";
 import { TaskItem } from "./types";
-interface TaskProps {
-  item: TaskItem;
-  removeTask: (task: TaskItem) => void;
-}
-const Task = (props: TaskProps) => {
-  const { item, removeTask } = props;
+
+const Task = (props: TaskItem) => {
+  console.log(props.id);
   return (
-    <div className="TaskItem shadow-md border border-slate-100">
-      <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-        <div>
-          <Link to={`/tasks/${item.id}`}>
-            <h3 className="text-base font-bold my-1">{item.title}</h3>
-          </Link>
-          <p className="text-sm text-slate-500">{item.dueDate}</p>
-          <p className="text-sm text-slate-500">
-            Description: {item.description}
-          </p>
+    <li className="flex w-fit">
+      <div className="TaskItem  px-5 bg-white ">
+        <div className="flex">
+          <h2 className="text-xl font-bold my-1">
+            <a href={`/tasks/${props.id}`}>{props.title} </a>
+          </h2>
         </div>
-        <button className="deleteTaskButton cursor-pointer flex items-center justify-center h-4 w-4 rounded-full my-5 mr-5"
-          onClick={() => removeTask(item)}>
-          X
-        </button>
+
+        <p className="text-lg text-gray-500">
+          {" "}
+          <strong>Due date:</strong>
+          {props.dueDate}
+        </p>
+        <p className="text-lg text-gray-500">Description:{props.description}</p>
       </div>
-    </div>
+    </li>
   );
 };
 
