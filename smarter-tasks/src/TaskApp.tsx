@@ -26,11 +26,11 @@ const TaskApp = () => {
     setTaskAppState({ tasks: [...taskAppState.tasks, task] });
   };
 
-  const deleteTask = (idx: number) => {
-    const updatedTasks = [...taskAppState.tasks];
-    updatedTasks.splice(idx, 1);
-    setTaskAppState({ tasks: updatedTasks });
-  };
+  // const deleteTask = (idx: number) => {
+  //   const updatedTasks = [...taskAppState.tasks];
+  //   updatedTasks.splice(idx, 1);
+  //   setTaskAppState({ tasks: updatedTasks });
+  // };
 
   return (
     <div className="container py-10 max-w-7xl mx-auto">
@@ -47,7 +47,7 @@ const TaskApp = () => {
             Pending
           </h1>
           <TaskForm addTask={addTask} />
-          <TaskList tasks={taskAppState.tasks} onDelete={deleteTask} />
+          <TaskList tasks={taskAppState.tasks} />
         </div>
       </div>
     </div>

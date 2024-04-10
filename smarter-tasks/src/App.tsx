@@ -1,15 +1,17 @@
+import './App.css'
 import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import TaskListPage from "./pages/TaskListPage";
+import HomePage from './pages/HomePage';
+import TaskListPage from './pages/TaskListPage';
 import TaskDetailsPage from "./pages/TaskDetailsPage";
+import Layout from "./Layout";
 import Signin from "./pages/Signin";
 import ProtectedRoute from "./ProtectedRoute";
-import Layout from "./Layout";
-import NotFound from "./pages/NotFound"; // Import the NotFound component
+import Notfound from "./pages/NotFound"
+// import TaskApp from "./TaskApp";
 
 const router = createBrowserRouter([
   {
@@ -41,15 +43,20 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // Define the NotFound route
-  {
-    path: "/*", // Catch all invalid routes
-    element: <NotFound />,
+  { 
+    path: "/notfound", 
+    element: <Notfound /> 
+  },
+  { 
+    path: "*", 
+    element: <Navigate to="/notfound" replace />,
   },
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
-};
+  return (
+    <RouterProvider router={router} />
+  );
+}
 
-export default App;
+export default App

@@ -10,7 +10,7 @@ interface TaskFormState {
   description: string;
   dueDate: string;
 }
-
+let taskIdCounter = 1;
 const TaskForm = (props: TaskFormProps) => {
 
   const [formState, setFormState] = React.useState<TaskFormState>({
@@ -18,6 +18,7 @@ const TaskForm = (props: TaskFormProps) => {
     description: "",
     dueDate: "",
   });
+ 
 
   const titleChanged: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     console.log(`${event.target.value}`);
@@ -40,7 +41,13 @@ const TaskForm = (props: TaskFormProps) => {
     if (formState.title.length === 0 || formState.dueDate === null) {
       return;
     }
-    props.addTask(formState);
+    const newTask: TaskItem = {
+      id: String(taskIdCounter++),
+      title: formState.title,
+      description: formState.description,
+      dueDate: formState.dueDate,
+    };
+    props.addTask(newTask);
     setFormState({ title: "", dueDate: "", description: "" });
   };
   return (
