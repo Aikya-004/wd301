@@ -65,34 +65,33 @@
 // }
 
 // export default App
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Notfound from "./pages/Notfound";
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Notfound from './pages/Notfound';
 import Signup from './pages/signup';
 import Signin from './pages/signin';
-import Dashboard from "./pages/dashboard";
-import ProtectedRoute from "./ProtectedRoute";
+import Dashboard from './pages/dashboard';
+import ProtectedRoute from './ProtectedRoute';
+
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Signup />,
   },
   {
-    path: "/signup",
+    path: '/signup',
     element: <Signup />,
   },
   {
-    path: "/signin", // then we've added the signin route
+    path: '/signin',
     element: <Signin />,
   },
   {
-    path: "/notfound",
+    path: '/notfound',
     element: <Notfound />,
   },
   {
-    path: "/dashboard",
+    path: '/dashboard',
     element: (
       <ProtectedRoute>
         <Dashboard />
@@ -100,15 +99,13 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "*",
+    path: '*',
     element: <Notfound />,
-  }
+  },
 ]);
 
 const App = () => {
-  return (
-    <RouterProvider router={router} />
-  );
-}
+  return <RouterProvider router={router} />;
+};
 
-export default App
+export default App;
