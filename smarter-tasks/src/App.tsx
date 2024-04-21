@@ -1,111 +1,65 @@
-// import './App.css'
-// import {
-//   createBrowserRouter,
-//   Navigate,
-//   RouterProvider,
-// } from "react-router-dom";
-// import HomePage from './pages/HomePage';
-// import TaskListPage from './pages/TaskListPage';
-// import TaskDetailsPage from "./pages/TaskDetailsPage";
-// import Form from './Form';
-// import ReactPlayground from './ReactPlayground';
-// import Layout from "./Layout";
-// import Signin from "./pages/Signin";
-// import ProtectedRoute from "./ProtectedRoute";
-// import Notfound from "./pages/Notfound"
-// // import TaskApp from "./TaskApp";
+// import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// import Notfound from './pages/Notfound';
+// import Signup from './pages/signup';
+// import Signin from './pages/signin';
+// import Dashboard from './pages/dashboard';
+// import ProtectedRoute from './ProtectedRoute';
 
 // const router = createBrowserRouter([
 //   {
-//     path: "/",
-//     element: <Navigate to="/signin" replace />,
+//     path: '/',
+//     element: <Signup />,
 //   },
 //   {
-//     path: "/signin",
+//     path: '/signup',
+//     element: <Signup />,
+//   },
+//   {
+//     path: '/signin',
 //     element: <Signin />,
 //   },
 //   {
+//     path: '/notfound',
+//     element: <Notfound />,
+//   },
+//   {
+//     path: '/dashboard',
 //     element: (
 //       <ProtectedRoute>
-//         <Layout />
+//         <Dashboard />
 //       </ProtectedRoute>
 //     ),
-//     children: [
-//       {
-//         path: "home",
-//         element: <HomePage />,
-//       },
-//       {
-//         path: "tasks",
-//         element: <TaskListPage />,
-//       },
-//       {
-//         path: "tasks/:id",
-//         element: <TaskDetailsPage />,
-//       },
-//     ],
 //   },
-//   { 
-//     path: "/notfound", 
-//     element: <Notfound /> 
-//   },
-//   { 
-//     path: "*", 
-//     element: <Navigate to="/notfound" replace />,
+//   {
+//     path: '*',
+//     element: <Notfound />,
 //   },
 // ]);
 
 // const App = () => {
-//   return (
-//     <>
-//       <ReactPlayground />
-//       <RouterProvider router={router} />
-//     </>
-//   );
-// }
+//   return <RouterProvider router={router} />;
+// };
 
-// export default App
+// export default App;
+import React, { useContext } from "react";
+import { RouterProvider } from "react-router-dom";
+import "./App.css";
+import router from "./routes"
+import { ThemeContext } from "./context/theme";
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Notfound from './pages/Notfound';
-import Signup from './pages/signup';
-import Signin from './pages/signin';
-import Dashboard from './pages/dashboard';
-import ProtectedRoute from './ProtectedRoute';
+// To do that, first I'll import the `ProjectsProvider` in the `App` component.
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Signup />,
-  },
-  {
-    path: '/signup',
-    element: <Signup />,
-  },
-  {
-    path: '/signin',
-    element: <Signin />,
-  },
-  {
-    path: '/notfound',
-    element: <Notfound />,
-  },
-  {
-    path: '/dashboard',
-    element: (
-      <ProtectedRoute>
-        <Dashboard />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '*',
-    element: <Notfound />,
-  },
-]);
+import { ProjectsProvider } from "./context/projects/context";
 
+// Then I'll wrap the RouterProvider component with the <ProjectsProvider> component.
 const App = () => {
-  return <RouterProvider router={router} />;
-};
-
+  const { theme } = useContext(ThemeContext)
+  return (
+     <div className={`h-screen w-full mx-auto py-2 ${theme === "dark" ? "dark" : ""}`}>
+      <ProjectsProvider>
+        <RouterProvider router={router} />
+      </ProjectsProvider>
+    </div>
+  );
+}
 export default App;
