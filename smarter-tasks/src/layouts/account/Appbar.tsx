@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState,useContext, Fragment } from 'react'
 import { Disclosure, Menu, Transition, Switch } from '@headlessui/react'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
 import Logo from "../../assets/images/logo.png"
 import { Link, useLocation } from "react-router-dom"
 import { ThemeContext } from "../../context/theme";
-import React from 'react'
 
 const userNavigation = [
   { name: 'Profile', href: '#' },
