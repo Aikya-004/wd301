@@ -41,10 +41,11 @@
 // };
 
 // export default App;
-import  { React,useContext } from "react";
+import  { useContext } from "react";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import router from "./routes"
+import React from "react";
 import { ThemeContext } from "./context/theme";
 
 // To do that, first I'll import the `ProjectsProvider` in the `App` component.
