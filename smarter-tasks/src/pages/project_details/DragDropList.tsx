@@ -41,55 +41,48 @@ const DragDropList = (props: {
       newTaskIDs.splice(source.index, 1);
       newTaskIDs.splice(destination.index, 0, draggableId);
       const newColumn = {
-        ...start,
-        taskIDs: newTaskIDs,
+          ...start,
+          taskIDs: newTaskIDs,
       };
       const newState = {
-        ...props.data,
-        columns: {
-          ...props.data.columns,
-          [newColumn.id]: newColumn,
-        },
+          ...props.data,
+          columns: {
+              ...props.data.columns,
+              [newColumn.id]: newColumn,
+          },
       };
       reorderTasks(taskDispatch, newState);
-      const updatedTask = props.data.tasks[updatedItems[0]];
-     updatedTask.state = finishKey;
-     updateTask(taskDispatch, projectID ?? "", updatedTask);
       return;
-    }
+  }
+  const startTaskIDs = Array.from(start.taskIDs);
+  const updatedItems = startTaskIDs.splice(source.index, 1);
 
-    // Start and finish list are different
-
-    const startTaskIDs = Array.from(start.taskIDs);
-    // Remove the item from `startTaskIDs`
-    const updatedItems = startTaskIDs.splice(source.index, 1);
-
-    const newStart = {
+  const newStart = {
       ...start,
       taskIDs: startTaskIDs,
-    };
-
-    const finishTaskIDs = Array.from(finish.taskIDs);
-
-    // Insert the item to destination list.
-    finishTaskIDs.splice(destination.index, 0, draggableId);
-    const newFinish = {
-      ...finish,
-      taskIDs: finishTaskIDs,
-    };
-
-    // Create new state with newStart and newFinish
-    const newState = {
-      ...props.data,
-      columns: {
-        ...props.data.columns,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
-      },
-    };
-    reorderTasks(taskDispatch, newState);
   };
 
+  const finishTaskIDs = Array.from(finish.taskIDs);
+
+  finishTaskIDs.splice(destination.index, 0, draggableId);
+  const newFinish = {
+      ...finish,
+      taskIDs: finishTaskIDs,
+  };
+
+  const newState = {
+      ...props.data,
+      columns: {
+          ...props.data.columns,
+          [newStart.id]: newStart,
+          [newFinish.id]: newFinish,
+      },
+  };
+  reorderTasks(taskDispatch, newState);
+  const updatedTask = props.data.tasks[updatedItems[0]];
+  updatedTask.state = finishKey;
+  updateTask(taskDispatch, projectID ?? "", updatedTask);
+};
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Container>

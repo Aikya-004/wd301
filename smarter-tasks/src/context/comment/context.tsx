@@ -1,22 +1,23 @@
-import React, { createContext, useContext, useReducer } from "react";
-import { commentReducer, initialState } from "./reducer"; // Make sure the path is correct
-import { CommentListState, CommentDispatch } from "./types";
+import React, { createContext, useContext, useReducer, PropsWithChildren } from 'react';
+import { CommentListState, CommentDispatch } from './types';
+import { commentReducer, initialState } from './reducer';
 
-const CommentsStateContext = createContext<CommentListState>(initialState);
-const CommentsDispatchContext = createContext<CommentDispatch>(() => {});
 
-export const CommentsProvider: React.FC = ({ children }) => {
-  // Create a state and dispatch with `useReducer` passing in the `commentReducer` and an initial state. Pass these as values to our contexts.
-  const [state, dispatch] = useReducer(commentReducer, initialState);
-  return (
-    <CommentsStateContext.Provider value={state}>
-      <CommentsDispatchContext.Provider value={dispatch}>
-        {children}
-      </CommentsDispatchContext.Provider>
-    </CommentsStateContext.Provider>
-  );
-};
 
-// Create helper hooks to extract the `state` and `dispatch` out of the context.
-export const useCommentsState = () => useContext(CommentsStateContext);
-export const useCommentsDispatch = () => useContext(CommentsDispatchContext);
+
+const CommentStateContext = createContext<CommentListState>(initialState);
+const CommentDispatchContext = createContext<CommentDispatch>(() => { });
+
+export const CommentProvider: React.FC<PropsWithChildren> = ({ children }) => {
+    const [state, dispatch] = useReducer(commentReducer, initialState);
+    return (
+        <CommentStateContext.Provider value={state}>
+            <CommentDispatchContext.Provider value={dispatch}>
+                {children}
+            </CommentDispatchContext.Provider>
+        </CommentStateContext.Provider>
+    )
+}
+
+export const useCommentsState = () => useContext(CommentStateContext);
+export const useCommentsDispatch = () => useContext(CommentDispatchContext);
