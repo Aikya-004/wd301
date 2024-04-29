@@ -6,7 +6,7 @@ export interface Comment {
     createdAt: ReactNode;
     description: ReactNode;
     id: number;
-    // comment: string;
+    comment: string;
     name: string;
     // timestamp: DOMHighResTimeStamp;
 }
