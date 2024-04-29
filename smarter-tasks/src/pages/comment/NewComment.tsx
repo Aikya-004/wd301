@@ -15,8 +15,7 @@ const NewComment = () => {
   const {
     register,
     handleSubmit,
-    // eslint-disable-next-line no-empty-pattern
-    formState: {},
+    formState: {errors},
   } = useForm<CommentsPayload>({});
 
   useEffect(() => {

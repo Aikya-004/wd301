@@ -2,12 +2,13 @@ import React, { ReactNode } from 'react';
 
 export interface Comment {
     User: any;
+    // User: any;
     createdAt: ReactNode;
     description: ReactNode;
     id: number;
-    comment: string;
+    // comment: string;
     name: string;
-    timestamp: DOMHighResTimeStamp;
+    // timestamp: DOMHighResTimeStamp;
 }
 
 

@@ -19,8 +19,8 @@ const CommentList = () => {
 
   // Get the current user from localStorage
   const currentMember = JSON.parse(localStorage.getItem("userData") || "{}");
-  const currentUser = currentMember.name.toString();
-
+  // const currentUser = currentMember.name.toString();
+  const User = currentMember.name.toString();
   return (
     <div className="mt-4">
       <h3 className="text-lg font-medium">Comments</h3>
@@ -33,7 +33,7 @@ const CommentList = () => {
               <div className="mr-3">{comment.description}</div>
               <div className="mr-3">{comment.createdAt}</div>
               <div className="mr-3">
-                {comment.User ? comment.User.name : currentUser}
+                {comment.User ? comment.User.name : User}
               </div>
             </div>
           ))

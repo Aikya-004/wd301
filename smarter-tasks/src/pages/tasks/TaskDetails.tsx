@@ -9,14 +9,17 @@ import { useProjectsState } from "../../context/projects/context";
 import { TaskDetailsPayload } from "../../context/task/types";
 import { useMembersState } from "../../context/members/context";
 import { useCommentsDispatch, useCommentsState } from "../../context/comment/context";
-import { fetchComments } from "../../context/comment/actions";
+// import { fetchComments } from "../../context/comment/actions";
 import CommentList from "../comment/CommentList";
 import NewComment from "../comment/NewComment";
 type TaskFormUpdatePayload = TaskDetailsPayload & {
     selectedPerson: string;
   };
 
-// Helper function to format the date to YYYY-MM-DD format
+
+
+const TaskDetails = () => {
+  // Helper function to format the date to YYYY-MM-DD format
 const formatDateForPicker = (isoDate: string) => {
   const dateObj = new Date(isoDate);
   const year = dateObj.getFullYear();
@@ -26,8 +29,6 @@ const formatDateForPicker = (isoDate: string) => {
   // Format the date as per the required format for the date picker (YYYY-MM-DD)
   return `${year}-${month}-${day}`;
 };
-
-const TaskDetails = () => {
   let [isOpen, setIsOpen] = useState(true);
 
   let { projectID, taskID } = useParams();
@@ -40,13 +41,10 @@ const TaskDetails = () => {
   const memberState = useMembersState();
   const commentDispatch = useCommentsDispatch();
   const commentState = useCommentsState();
-  useEffect(() => {
-    if (taskID && projectID) fetchComments(commentDispatch, projectID, taskID);
-}, [commentDispatch, projectID, taskID]);
-const selectedProject = projectState?.projects.filter(
+   
+  const selectedProject = projectState?.projects.filter(
     (project) => `${project.id}` === projectID
-)[0];
-
+  )[0];
 
   const selectedTask = taskListState.projectData.tasks[taskID ?? ""];
   // Use react-form-hook to manage the form. Initialize with data from selectedTask.
@@ -57,7 +55,6 @@ const selectedProject = projectState?.projects.filter(
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<TaskFormUpdatePayload>({
     defaultValues: {
       title: selectedTask.title,

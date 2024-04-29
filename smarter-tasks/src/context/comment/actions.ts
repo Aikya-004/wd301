@@ -1,5 +1,5 @@
 import { API_ENDPOINT } from "../../config/constants";
-import { Comment, CommentListAvailableAction, CommentDispatch } from "./types";
+import {  CommentListAvailableAction, CommentDispatch } from "./types";
 
 export const fetchComments = async (
   dispatch: CommentDispatch,
@@ -40,7 +40,7 @@ export const addComment = async (
   dispatch: CommentDispatch,
   projectID: string,
   taskID: string,
-  comment: Comment
+  comment: any,
 ) => {
   const token = localStorage.getItem("authToken") ?? "";
   try {

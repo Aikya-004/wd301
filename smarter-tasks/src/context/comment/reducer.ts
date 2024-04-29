@@ -11,7 +11,7 @@ export const initialState: CommentListState = {
 export const commentReducer: Reducer<CommentListState, CommentActions> = (
   state = initialState,
   action
-) => {
+): CommentListState => {
   switch (action.type) {
     case CommentListAvailableAction.FETCH_COMMENT_REQUEST:
       return { ...state, isLoading: true };
