@@ -46,5 +46,6 @@ export default defineConfig({
         theme_color: "#AAF",
       },
     }),
-  ]
+  ],
+  mode:"production"
 });
